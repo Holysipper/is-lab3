@@ -65,3 +65,27 @@ end
 plot(x,y1_2,'bO');
 hold on;
 legend("Originali sinusoide","SBF tinklo aproksimacija");
+
+x = 0.1:1/25:1;
+
+% isejimas
+
+y = (1 + 0.6*sin(2*pi*x/0.7) + 0.3*sin(2*pi*x))/2;
+
+for i = 1:length(x)
+    % Gauso f-jos
+    fi_1 = exp(-((x(i)-c1)^2)/(2*r1^2));
+    fi_2 = exp(-((x(i)-c2)^2)/(2*r2^2));
+    
+    % pasvertoji suma isejimo neuronui
+    
+    v1_2 = w11_2*fi_1+w12_2*fi_2 + w0;
+    y1_2(i) = v1_2;
+end
+
+figure;
+fplot(@(x) (1 + 0.6*sin(2*pi*(x)/0.7) + 0.3*sin(2*pi*(x)))/2, [0.1 1], 'r');
+hold on;
+plot(x, y1_2, '--r');
+legend("Nauja sinusoide", "Aproksimacija");
+title('testas');
